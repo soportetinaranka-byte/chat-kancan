@@ -341,3 +341,65 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.carrusel-footer {
+    /* ... lo que ya tienes ... */
+    animation: neon-pulse 1.5s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from { text-shadow: 0 0 5px #fff, 0 0 10px #b3bfff; }
+    to { text-shadow: 0 0 10px #fff, 0 0 20px #b3bfff, 0 0 30px #b3bfff; }
+}
+.frases-flotantes span {
+    position: fixed;
+    bottom: -100px;
+    font-family: 'Georgia', serif; /* O una cursiva que tengas */
+    font-style: italic;
+    font-weight: bold;
+    color: #dee3f7;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    z-index: 1; /* Para que pase por DETRÁS del chat y del carrusel */
+    animation: subirFrase 10s infinite linear;
+}
+
+@keyframes subirFrase {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.1);
+        opacity: 0;
+    }
+}
+
+/* Esparcirlas por la pantalla con diferentes tiempos para que no salgan todas juntas */
+.frases-flotantes span:nth-child(1) { left: 5%; animation-delay: 0s; font-size: 18px; }
+.frases-flotantes span:nth-child(2) { left: 40%; animation-delay: 3s; font-size: 24px; }
+.frases-flotantes span:nth-child(3) { left: 70%; animation-delay: 6s; font-size: 16px; }
+.frases-flotantes span:nth-child(4) { left: 25%; animation-delay: 8s; font-size: 22px; }
+#carrusel-vertical::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.89), transparent);
+    animation: flash 5s infinite;
+}
+
+@keyframes flash {
+    0% { left: -150%; }
+    20% { left: 150%; }
+    100% { left: 150%; }
+}
