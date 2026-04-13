@@ -103,6 +103,7 @@ socket.on('connect', () => {
             <button onclick="aceptarPoliticas(false)">❌ No</button>
         </div>
     `;
+    new Audio('notificacion.mp3').play().catch(() => {});
     messages.appendChild(msgPolitica);
     messages.scrollTop = messages.scrollHeight;
 });
@@ -147,7 +148,7 @@ function mostrarMenuPrendas() {
                 <button onclick="elegirPrenda('Accesorios')"><img src="accesorios.webp" style="width:20px; vertical-align:middle;"> Accesorios</button>
             </div>
         `;
-       
+       new Audio('notificacion.mp3').play().catch(() => {});
         messages.appendChild(divOpciones);
 
         const btnCat = document.createElement('div');
@@ -185,6 +186,8 @@ function elegirPrenda(prenda) {
         `;
         messages.appendChild(divZonas);
         messages.scrollTop = messages.scrollHeight;
+        const sonido = new Audio('notificacion.mp3');
+        sonido.play().catch(e => console.log("Error de audio:", e));
     }, 1500);
 }
 
@@ -223,18 +226,26 @@ function enviarMensajeBot(texto) {
 }
 
 
-
 function enviarMensajeUsuario(texto) {
     const item = document.createElement('div');
     item.classList.add('msg', 'sent');
     item.textContent = texto;
     messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight; // Te recomiendo añadir esto para que baje solo
+} // <--- ESTA ES LA LLAVE QUE FALTA
+
+const closeBtn = document.getElementById('close-chat');
+const container = document.getElementById('chat-container');
+
+if (closeBtn) {
+    closeBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        container.style.display = 'none';
+        console.log("Chat cerrado");
+    };
 }
-const closeChat = document.getElementById('close-chat');
-closeChat.addEventListener('click', (e) => {
-    e.stopPropagation(); 
-    chatContainer.style.display = 'none';
-});
+
 
 
 chatCircle.addEventListener('click', () => {
@@ -271,6 +282,8 @@ function mostrarTiendasPorZona(zona) {
         `;
         messages.appendChild(divSelect);
         messages.scrollTop = messages.scrollHeight;
+        const sonido = new Audio('notificacion.mp3');
+        sonido.play().catch(e => console.log("Error de audio:", e));
     }, 1500);
 }
  
@@ -380,6 +393,21 @@ document.addEventListener('visibilitychange', () => {
         }, 3000);
     }
 });
+// Usamos window.onload para asegurar que el chat ya cargó en la pantalla
+window.addEventListener('load', () => {
+    const botonCerrar = document.getElementById('close-chat');
+    const ventanaChat = document.getElementById('chat-container');
+
+    if (botonCerrar) {
+        botonCerrar.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Esto evita que el clic "abra" el chat al mismo tiempo
+            ventanaChat.style.display = 'none';
+            console.log("Chat de Kancan cerrado correctamente");
+        });
+    }
+});
+
 
 
 
