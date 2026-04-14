@@ -403,3 +403,32 @@ body {
     20% { left: 150%; }
     100% { left: 150%; }
 }
+/* AJUSTES PARA CELULARES */
+@media (max-width: 768px) {
+    /* El carrusel lo hacemos más pequeño para que no tape todo */
+    #carrusel-vertical {
+        width: 250px; 
+        height: 400px;
+        left: 50%;
+        transform: translate(-50%, -60%); /* Centrado arriba */
+        border-width: 3px;
+    }
+
+    /* El chat lo movemos para que no tape el carrusel */
+    #chat-container {
+        width: 90% !important; /* Casi todo el ancho del celular */
+        right: 5% !important;
+        bottom: 80px !important;
+        height: 450px !important;
+    }
+
+    /* Ajustamos las frases flotantes para que no saturen la pantalla */
+    .frases-flotantes span {
+        font-size: 14px !important;
+    }
+
+    /* Ocultamos la notificación del chat si estorba mucho */
+    #chat-notification {
+        display: none !important;
+    }
+}

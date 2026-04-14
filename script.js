@@ -337,14 +337,26 @@ let indiceActual = 0;
 
 const carrusel = document.getElementById('carrusel-vertical');
 
+// Precarga para evitar el parpadeo transparente
+imagenesKancan.forEach((url) => {
+    const img = new Image();
+    img.src = url;
+});
+
 function rotarCarrusel() {
     if (carrusel) {
+        // Primero hacemos un desvanecimiento suave (fade out)
+        carrusel.style.opacity = "0.9"; 
         
-        const nombreImagen = encodeURI(imagenesKancan[indiceActual]);
-        carrusel.style.backgroundImage = `url('${nombreImagen}')`;
-        indiceActual = (indiceActual + 1) % imagenesKancan.length;
+        setTimeout(() => {
+            const nombreImagen = encodeURI(imagenesKancan[indiceActual]);
+            carrusel.style.backgroundImage = `url('${nombreImagen}')`;
+            carrusel.style.opacity = "1"; // Volvemos a opacidad total
+            indiceActual = (indiceActual + 1) % imagenesKancan.length;
+        }, 500); // Cambia la imagen justo a mitad de la transición
     }
 }
+
 
 setTimeout(() => {
     if (carrusel) {
