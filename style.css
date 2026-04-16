@@ -176,13 +176,54 @@ body {
     width: 320px; /* Un poco más angosto para que luzca la modelo */
 }
 
+.logo-kancan {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 20px;
+    /* Usamos tus colores morados aquí */
+    background: linear-gradient(to right, #fff 20%, #6552b8 40%, #6b52f7 60%, #fff 80%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo-kancan 3s linear infinite;
+}
+
+@keyframes brillo-kancan {
+    0% { background-position: 0% center; transform: scale(1); }
+    50% { transform: scale(1.03); } /* Un latido muy suave */
+    100% { background-position: 200% center; transform: scale(1); }
+}
 
 .online-dot {
-    height: 8px; width: 8px; background-color: #25d366;
-    border-radius: 50%; display: inline-block; margin-right: 5px;
-    animation: blink 1.5s infinite;
+    width: 10px !important;
+    height: 10px !important;
+    background-color: #25d366 !important;
+    border-radius: 50%;
+    display: inline-block !important;
+    margin-right: 8px !important;
+    
+    /* Usamos 'alternate' para que el movimiento sea más fluido */
+    animation: luz-asesora 1.2s infinite alternate !important;
+    
+    /* Eliminamos cualquier herencia de texto transparente del logo */
+    -webkit-text-fill-color: #25d366 !important;
+    background-clip: padding-box !important;
+    box-shadow: 0 0 5px #25d366;
 }
-@keyframes blink { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+@keyframes luz-asesora {
+    from { 
+        opacity: 0.2; 
+        transform: scale(0.8);
+        box-shadow: 0 0 0px #25d366;
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #25d366;
+    }
+}
 
 
 .btn-catalogo {
@@ -327,12 +368,19 @@ body {
     40% { transform: scale(1); }
 }
 #close-chat {
+    color: white !important; /* Fuerza a que sea blanca */
+    -webkit-text-fill-color: white !important; /* Quita la transparencia del logo */
     cursor: pointer;
-    padding: 10px; 
-    font-size: 28px;
-    line-height: 1;
-    display: inline-block;
+    font-size: 24px;
+    opacity: 0.8;
+    transition: 0.3s;
 }
+
+#close-chat:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
 .msg {
     animation: slideIn 0.3s ease-out;
 }
@@ -487,13 +535,14 @@ body {
     }
 }
 .chat-header span {
-    background: linear-gradient(to right, #fff 20%, #6552b8 40%, #6b52f7 60%, #fff 80%);
     background-size: 200% auto;
-    color: #fff;
+    color: #fff; /* Color de respaldo */
+    
+    /* Estas son las líneas correctas para el efecto de texto transparente */
     background-clip: text;
-    text-fill-color: transparent;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; /* Esta es la que los navegadores sí entienden */
+    
     animation: brillo-texto 3s linear infinite;
 }
 
