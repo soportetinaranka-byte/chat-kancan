@@ -370,13 +370,14 @@ setTimeout(() => {
 const chatHeader = document.querySelector('.chat-header');
 chatHeader.innerHTML = `
     <div>
-        <span>KanCan </span><br>
-        <small style="font-size:10px; font-weight:normal;">
+        <span class="logo-kancan">KanCan</span><br>
+        <small style="font-size:10px; font-weight:normal; display: flex; align-items: center; margin-top: 2px;">
             <span class="online-dot"></span> 5 ASESORAS DISPONIBLES
         </small>
     </div>
     <span id="close-chat" style="cursor:pointer; font-size:24px;">&times;</span>
 `;
+
 function mostrarEscribiendo() {
     const loader = document.createElement('div');
     loader.id = 'typing-loader';
