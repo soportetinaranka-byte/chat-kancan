@@ -96,7 +96,7 @@ socket.on('connect', () => {
     msgPolitica.innerHTML = `
         ¡Hola hermosa! Bienvenidas la familia latina <strong>Kancan💞</strong>. <br><br>
         Al continuar aceptas nuestra Política de protección de datos: 
-        <a href="https://kancanjeanscolombia.com" target="_blank">Leer aquí</a>.
+        <a href="https://www.kancanjeanscolombia.com/pages/politica-de-tratamiento-de-datos" target="_blank">Leer aquí</a>.
         <br><br><strong>¿Deseas continuar?</strong>
         <div class="botones-grid">
             <button onclick="aceptarPoliticas(true)">✅ Sí, acepto</button>
