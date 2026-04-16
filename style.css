@@ -432,3 +432,55 @@ body {
         display: none !important;
     }
 }
+/* --- AJUSTES EXCLUSIVOS PARA MÓVILES --- */
+@media (max-width: 768px) {
+    
+    /* 1. Carrusel grande y centrado */
+    #carrusel-vertical {
+        width: 85vw; /* Ocupa el 85% del ancho de la pantalla */
+        height: 60vh; /* Ocupa el 60% del alto de la pantalla */
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%); /* Centrado perfecto */
+        border-width: 3px;
+        z-index: 5;
+    }
+
+    /* Texto de nueva colección un poco más grande en móvil */
+    .carrusel-footer {
+        font-size: 18px;
+        padding: 15px 0;
+    }
+
+    /* 2. Chat en pantalla completa al abrirse */
+    #chat-container {
+        width: 100% !important;
+        height: 100% !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        border-radius: 0 !important; /* Sin bordes redondeados para que parezca app */
+        z-index: 2000 !important; /* Por encima de todo */
+    }
+
+    /* 3. Ajuste de los botones para que sean fáciles de tocar con el dedo */
+    .botones-grid {
+        grid-template-columns: 1fr 1fr; /* Dos columnas */
+        gap: 8px;
+    }
+
+    .botones-grid button {
+        padding: 12px 8px; /* Más altos para el dedo */
+        font-size: 14px;
+    }
+
+    /* 4. Evitar que la pantalla se mueva hacia los lados */
+    body, html {
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* 5. Frases flotantes más discretas */
+    .frases-flotantes span {
+        font-size: 12px !important;
+    }
+}
