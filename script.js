@@ -140,7 +140,7 @@ function mostrarMenuPrendas() {
                 <button onclick="elegirPrenda('Faldas')"><img src="faldas.webp" style="width:20px; vertical-align:middle;"> Faldas</button>
                 <button onclick="elegirPrenda('Vestidos')"><img src="vestidos.webp" style="width:20px; vertical-align:middle;"> Vestidos</button>
                 <button onclick="elegirPrenda('Sets')"><img src="sets.webp" style="width:20px; vertical-align:middle;"> Sets</button>
-                <button onclick="elegirPrenda('Shorts')"><img src="shorts.webp" style="width:20px; vertical-align:middle;"> Shorts</button>
+                <button onclick="elegirPrenda('Shorts')"><img src="Shorts.webp" style="width:20px; vertical-align:middle;"> Shorts</button>
                 <button onclick="elegirPrenda('Enterizos')"><img src="enterizos.webp" style="width:20px; vertical-align:middle;"> Enterizos</button>
                 <button onclick="elegirPrenda('Zapatos')"><img src="zapatos.webp" style="width:20px; vertical-align:middle;"> Zapatos</button>
                 <button onclick="elegirPrenda('Crop Top')"><img src="croptop.webp" style="width:20px; vertical-align:middle;"> Crop Top</button>
