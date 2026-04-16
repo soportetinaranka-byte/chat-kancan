@@ -35,7 +35,6 @@ body {
 }
 
 
-
 #chat-circle {
     position: fixed; bottom: 20px; right: 20px;
     width: 60px; height: 60px; background: #6765f0;
@@ -77,14 +76,12 @@ body {
 .received { background: #f1f1f1; align-self: flex-start; color: #333; }
 .sent { background: #ffebf0; align-self: flex-end; color: #1b2c8b; border: 1px solid #775dd8; }
 
-/* Botones de Ciudad y WhatsApp */
+
 .botones-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .botones-grid button {
     background: white; border: 1px solid #6765f0; color: #6765f0;
     padding: 5px 10px; border-radius: 15px; cursor: pointer; font-size: 12px;
 }
-
-
 
 #chat-form { display: flex; border-top: 1px solid #eee; padding: 5px; }
 #user-input { flex: 1; border: none; padding: 10px; outline: none; }
@@ -170,17 +167,15 @@ body {
 
 
 #chat-container {
-    
     border: 1px solid rgba(97, 70, 194, 0.6) !important;
     box-shadow: 0 0 20px rgba(52, 31, 241, 0.4) !important;
-    width: 320px; /* Un poco más angosto para que luzca la modelo */
+    width: 320px; 
 }
 
 .logo-kancan {
     display: inline-block;
     font-weight: bold;
-    font-size: 20px;
-    /* Usamos tus colores morados aquí */
+    font-size: 40px;
     background: linear-gradient(to right, #fff 20%, #6552b8 40%, #6b52f7 60%, #fff 80%);
     background-size: 200% auto;
     background-clip: text;
@@ -191,7 +186,7 @@ body {
 
 @keyframes brillo-kancan {
     0% { background-position: 0% center; transform: scale(1); }
-    50% { transform: scale(1.03); } /* Un latido muy suave */
+    50% { transform: scale(1.03); } 
     100% { background-position: 200% center; transform: scale(1); }
 }
 
@@ -203,10 +198,8 @@ body {
     display: inline-block !important;
     margin-right: 8px !important;
     
-    /* Usamos 'alternate' para que el movimiento sea más fluido */
     animation: luz-asesora 1.2s infinite alternate !important;
     
-    /* Eliminamos cualquier herencia de texto transparente del logo */
     -webkit-text-fill-color: #25d366 !important;
     background-clip: padding-box !important;
     box-shadow: 0 0 5px #25d366;
@@ -368,7 +361,7 @@ body {
     40% { transform: scale(1); }
 }
 #close-chat {
-    color: white !important; /* Fuerza a que sea blanca */
+    color: white !important; 
     -webkit-text-fill-color: white !important; /* Quita la transparencia del logo */
     cursor: pointer;
     font-size: 24px;
@@ -482,18 +475,15 @@ body {
         z-index: 9999 !important; /* Por encima de todo */
     }
 
-    /* Aseguramos que el área de mensajes crezca en el chat grande */
     #messages {
         height: calc(100vh - 120px) !important; 
     }
 
-    /* 3. Botón de cerrar (X) más grande para el dedo */
     #close-chat {
         font-size: 40px !important;
         padding: 15px !important;
     }
 
-    /* 4. Notificación flotante (opcional: ocultar para que no estorbe) */
     #chat-notification {
         display: none !important;
     }
@@ -512,9 +502,9 @@ body {
         font-size: 16px !important; /* Evita que el iPhone haga zoom automático al escribir */
     }
     #chat-notification {
-        display: block !important; /* Asegura que se vea */
+        display: block !important; 
         right: 20px !important;    /* Alineado a la derecha */
-        bottom: 90px !important;   /* Arriba del círculo rosa */
+        bottom: 90px !important;   
         left: auto !important;
         width: auto !important;
         max-width: 200px !important; /* Para que no ocupe todo el ancho */
@@ -525,23 +515,21 @@ body {
         border-radius: 12px 12px 0 12px !important; /* Forma de burbuja */
     }
 
-    /* Ajustar el triangulito para el móvil */
+    /*triangulito para el celular */
     #chat-notification::after {
         right: 15px !important;
         top: 100% !important;
         border-left: 8px solid transparent !important;
         border-right: 8px solid transparent !important;
-        border-top: 8px solid white !important; /* Apunta hacia abajo al botón */
+        border-top: 8px solid white !important;
     }
 }
 .chat-header span {
     background-size: 200% auto;
-    color: #fff; /* Color de respaldo */
-    
-    /* Estas son las líneas correctas para el efecto de texto transparente */
+    color: #fff; 
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Esta es la que los navegadores sí entienden */
+    -webkit-text-fill-color: transparent; 
     
     animation: brillo-texto 3s linear infinite;
 }
@@ -549,4 +537,27 @@ body {
 @keyframes brillo-texto {
     to { background-position: 200% center; }
 }
-
+#progress-bar-container { width: 100%; height: 3px; background: rgba(0,0,0,0.1); }
+#progress-bar { width: 0%; height: 100%; background: #004681; transition: width 0.5s ease; box-shadow: 0 0 10px #8f8ffa, 0 0 5px #1a64ee;
+    position: relative;}
+    
+/* Colores cuando el modo nocturno esté activo */
+.luxury-dark {
+    background: #121212 !important;
+}
+.luxury-dark #messages {
+    background: #1a1a1a !important;
+}
+.luxury-dark .received {
+    background: #2d2d2d !important;
+    color: #efefef !important;
+    border: 1px solid #333;
+}
+.luxury-dark #chat-form {
+    background: #121212 !important;
+    border-top: 1px solid #333;
+}
+.luxury-dark #user-input {
+    background: transparent !important;
+    color: white !important;
+}

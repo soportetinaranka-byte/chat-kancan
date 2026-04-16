@@ -20,16 +20,23 @@
     <div id="chat-circle"><span class="icon">💬</span></div>
 
     <div id="chat-container">
-        <header class="chat-header">
-            <span>KanCan </span>
-            <span id="close-chat">&times;</span>
-        </header>
-        <div id="messages"></div>
-        <form id="chat-form">
-            <input type="text" id="user-input" placeholder="Escribe aquí..." autocomplete="off">
-            <button type="submit">Enviar</button>
-        </form>
+    <header class="chat-header">
+        <span>KanCan </span>
+        <span id="close-chat">&times;</span>
+    </header>
+    
+    <!-- AQUÍ AÑADIMOS LA BARRA DE PROGRESO -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
     </div>
+
+    <div id="messages"></div>
+    <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Escribe aquí..." autocomplete="off">
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
 
     
     <script src="/socket.io/socket.io.js"></script>

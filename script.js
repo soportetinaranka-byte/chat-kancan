@@ -1,4 +1,6 @@
-
+let nombreClienta = "";
+let identificacionClienta = "";
+let pasoActual = "";
 const baseDeDatosTiendas = {
     "Cali Norte": [
         { nombre: "Palmira Centro", link: "https://api.whatsapp.com/send/?phone=573216387899&text&type=phone_number&app_absent=0%20busco" },
@@ -56,18 +58,13 @@ const baseDeDatosTiendas = {
 const chatCircle = document.getElementById('chat-circle');
 const chatContainer = document.getElementById('chat-container');
 
-
 chatCircle.addEventListener('click', () => {
     if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
         chatContainer.style.display = 'block';
     } else {
         chatContainer.style.display = 'none';
     }
-});
-
-let nombreClienta = "";
-let identificacionClienta = "";
-let pasoActual = ""; 
+}); 
 
 const socket = io();
 const form = document.getElementById('chat-form');
@@ -76,11 +73,35 @@ const messages = document.getElementById('messages');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (input.value) {
-        socket.emit('mensaje-chat', input.value);
-        input.value = '';
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    enviarMensajeUsuario(texto);
+    input.value = '';
+
+    if (pasoActual === "preguntandoNombre") {
+        nombreClienta = texto;
+        pasoActual = "preguntandoCedula";
+        setTimeout(() => {
+            enviarMensajeBot(`¡Mucho gusto, ${nombreClienta}! Ahora, por seguridad, ¿nos regalas tu Número de Documento?`);
+        }, 800);
+        document.getElementById('progress-bar').style.width = '20%';
+    } 
+    else if (pasoActual === "preguntandoCedula") {
+        cedulaClienta = texto;
+        pasoActual = ""; // Cerramos el cuestionario
+        setTimeout(() => {
+            enviarMensajeBot("¡Gracias por la información! Ahora sí...");
+            mostrarMenuPrendas(); // Ahora sí sale el menú de Jeans, Blusas, etc.
+        }, 800);
+        document.getElementById('progress-bar').style.width = '30%';
+    } 
+    else {
+        // Si no estamos preguntando datos, enviamos al socket normalmente
+        socket.emit('mensaje-chat', texto);
     }
 });
+
 
 socket.on('mensaje-chat', (msg) => {
     const item = document.createElement('div');
@@ -113,12 +134,13 @@ function aceptarPoliticas(acepta) {
     if (acepta) {
         enviarMensajeUsuario("Sí, acepto");
         setTimeout(() => {
-            mostrarMenuPrendas();
+            enviarMensajeBot("¡Gracias, hermosa! ✨ Para brindarte una mejor asesoría, ¿nos regalas tu Nombre Completo?");
+            pasoActual = "preguntandoNombre"; // Activamos la escucha del nombre
         }, 800);
     } else {
-        enviarMensajeUsuario("No acepto");
-        enviarMensajeBot("Entendemos. Si cambias de opinión, aquí estaremos para asesorarte. ¡Lindo día! ✨");
+        enviarMensajeBot("Entendido. ¡Lindo día! ✨");
     }
+    document.getElementById('progress-bar').style.width = '10%';
 }
 
 
@@ -160,6 +182,7 @@ function mostrarMenuPrendas() {
         messages.scrollTop = messages.scrollHeight;
 
     }, 1500); 
+    document.getElementById('progress-bar').style.width = '40%';
 }
 
 
@@ -189,6 +212,7 @@ function elegirPrenda(prenda) {
         const sonido = new Audio('notificacion.mp3');
         sonido.play().catch(e => console.log("Error de audio:", e));
     }, 1500);
+    document.getElementById('progress-bar').style.width = '60%';
 }
 
 function irAWhatsapp(ciudad) {
@@ -202,18 +226,14 @@ function irAWhatsapp(ciudad) {
 
 
 function enviarMensajeBot(texto) {
-    // Intentar reproducir el sonido directamente
     const sonido = new Audio('notificacion.mp3');
-    sonido.volume = 0.5; // Ajustar volumen al 50%
-    
-    // Esto fuerza al navegador a intentar tocarlo
+    sonido.volume = 0.5; 
+
     const playPromise = sonido.play();
 
     if (playPromise !== undefined) {
         playPromise.then(_ => {
-            // Audio iniciado con éxito
         }).catch(error => {
-            // El navegador bloqueó el inicio automático
             console.log("Esperando interacción para habilitar sonido");
         });
     }
@@ -231,8 +251,8 @@ function enviarMensajeUsuario(texto) {
     item.classList.add('msg', 'sent');
     item.textContent = texto;
     messages.appendChild(item);
-    messages.scrollTop = messages.scrollHeight; // Te recomiendo añadir esto para que baje solo
-} // <--- ESTA ES LA LLAVE QUE FALTA
+    messages.scrollTop = messages.scrollHeight; 
+} 
 
 const closeBtn = document.getElementById('close-chat');
 const container = document.getElementById('chat-container');
@@ -245,8 +265,6 @@ if (closeBtn) {
         console.log("Chat cerrado");
     };
 }
-
-
 
 chatCircle.addEventListener('click', () => {
     chatContainer.style.display = 'flex'; 
@@ -285,6 +303,7 @@ function mostrarTiendasPorZona(zona) {
         const sonido = new Audio('notificacion.mp3');
         sonido.play().catch(e => console.log("Error de audio:", e));
     }, 1500);
+    document.getElementById('progress-bar').style.width = '90%';
 }
  
 function confirmarTienda(zona, index) {
@@ -296,13 +315,14 @@ function confirmarTienda(zona, index) {
     setTimeout(() => {
         quitarEscribiendo();
 
-        const mensajeFinal = `¡Hola! Vengo del chat de Kancan, me interesa ver ${prendaElegida} en la tienda ${tienda.nombre} ¿Que referencia y talla manejas?`;
+        const mensajeFinal = `¡Hola! Soy ${nombreClienta} (CC: ${cedulaClienta}). Vengo del chat de KanCan. Me interesa ver ${prendaElegida} en la tienda ${tienda.nombre}. ¿Qué referencia y talla manejas? ✨`;
         const linkFinal = `${tienda.link}&text=${encodeURIComponent(mensajeFinal)}`;
 
         enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
         <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
         
     }, 1600); 
+    document.getElementById('progress-bar').style.width = '100%';
 }
 
 const notification = document.getElementById('chat-notification');
@@ -313,8 +333,7 @@ function cicloNotificacion() {
         notification.style.display = 'none';
         return;
     }
-
-    
+ 
     notification.style.display = 'block';
     
     setTimeout(() => {
@@ -337,7 +356,7 @@ let indiceActual = 0;
 
 const carrusel = document.getElementById('carrusel-vertical');
 
-// Precarga para evitar el parpadeo transparente
+
 imagenesKancan.forEach((url) => {
     const img = new Image();
     img.src = url;
@@ -345,7 +364,7 @@ imagenesKancan.forEach((url) => {
 
 function rotarCarrusel() {
     if (carrusel) {
-        // Primero hacemos un desvanecimiento suave (fade out)
+        
         carrusel.style.opacity = "0.9"; 
         
         setTimeout(() => {
@@ -353,7 +372,7 @@ function rotarCarrusel() {
             carrusel.style.backgroundImage = `url('${nombreImagen}')`;
             carrusel.style.opacity = "1"; // Volvemos a opacidad total
             indiceActual = (indiceActual + 1) % imagenesKancan.length;
-        }, 500); // Cambia la imagen justo a mitad de la transición
+        }, 500); 
     }
 }
 
@@ -406,7 +425,7 @@ document.addEventListener('visibilitychange', () => {
         }, 3000);
     }
 });
-// Usamos window.onload para asegurar que el chat ya cargó en la pantalla
+
 window.addEventListener('load', () => {
     const botonCerrar = document.getElementById('close-chat');
     const ventanaChat = document.getElementById('chat-container');
@@ -414,13 +433,21 @@ window.addEventListener('load', () => {
     if (botonCerrar) {
         botonCerrar.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation(); // Esto evita que el clic "abra" el chat al mismo tiempo
+            e.stopPropagation(); 
             ventanaChat.style.display = 'none';
             console.log("Chat de Kancan cerrado correctamente");
         });
     }
 });
-
-
-
+function actualizarProgreso(porcentaje) {
+    document.getElementById('progress-bar').style.width = porcentaje + '%';
+}
+function checkModoNocturno() {
+    const hora = new Date().getHours();
+    // Se activa de 7 PM (19) a 6 AM
+    if (hora >= 19 || hora <= 6) {
+        document.getElementById('chat-container').classList.add('luxury-dark');
+    }
+}
+checkModoNocturno();
 
