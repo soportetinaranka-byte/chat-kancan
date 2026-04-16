@@ -486,4 +486,18 @@ body {
         border-top: 8px solid white !important; /* Apunta hacia abajo al botón */
     }
 }
+.chat-header span {
+    background: linear-gradient(to right, #fff 20%, #6552b8 40%, #6b52f7 60%, #fff 80%);
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo-texto 3s linear infinite;
+}
+
+@keyframes brillo-texto {
+    to { background-position: 200% center; }
+}
 
