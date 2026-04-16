@@ -463,5 +463,27 @@ body {
     #user-input {
         font-size: 16px !important; /* Evita que el iPhone haga zoom automático al escribir */
     }
+    #chat-notification {
+        display: block !important; /* Asegura que se vea */
+        right: 20px !important;    /* Alineado a la derecha */
+        bottom: 90px !important;   /* Arriba del círculo rosa */
+        left: auto !important;
+        width: auto !important;
+        max-width: 200px !important; /* Para que no ocupe todo el ancho */
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+        background-color: white !important;
+        border-radius: 12px 12px 0 12px !important; /* Forma de burbuja */
+    }
+
+    /* Ajustar el triangulito para el móvil */
+    #chat-notification::after {
+        right: 15px !important;
+        top: 100% !important;
+        border-left: 8px solid transparent !important;
+        border-right: 8px solid transparent !important;
+        border-top: 8px solid white !important; /* Apunta hacia abajo al botón */
+    }
 }
 
