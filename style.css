@@ -561,3 +561,44 @@ body {
     background: transparent !important;
     color: white !important;
 }
+
+@media screen and (max-width: 768px) {
+    /* ... lo que ya tengas ... */
+
+    /* 1. Forzamos al chat a ocupar el alto exacto de la pantalla */
+    #chat-container {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        max-height: 100vh !important;
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    /* 2. El área de mensajes debe ser la que se mueva, dejando fijo el resto */
+    #messages {
+        flex: 1 !important; /* Toma todo el espacio sobrante */
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch; /* Suavidad en iPhone */
+        margin-bottom: 0 !important;
+    }
+
+    /* 3. ANCLAMOS EL FORMULARIO ABAJO */
+    #chat-form {
+        position: sticky !important; /* O 'relative' si el contenedor es flex */
+        bottom: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        padding: 10px !important;
+        border-top: 1px solid #eee !important;
+        z-index: 2001 !important;
+    }
+
+    /* Evitamos que el teclado del celular tape el input */
+    #user-input {
+        font-size: 16px !important; /* Crucial para evitar zoom automático en iOS */
+    }
+}

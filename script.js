@@ -193,26 +193,55 @@ function elegirPrenda(prenda) {
     enviarMensajeUsuario(`Busco ${prenda}`);
     mostrarEscribiendo();
     
+    // Avanzamos la barra al 60%
+    document.getElementById('progress-bar').style.width = '60%';
+
     setTimeout(() => {
         quitarEscribiendo();
-        const divZonas = document.createElement('div');
-        divZonas.classList.add('msg', 'received');
-        divZonas.innerHTML = `
-            <p>¡Perfecto! Selecciona tu zona para encontrar tu tienda <strong>Kancan</strong> más cercana: 📍</p>
-            <div class="botones-grid">
-                <button onclick="mostrarTiendasPorZona('Cali Norte')">Cali Norte</button>
-                <button onclick="mostrarTiendasPorZona('Cali Sur')">Cali Sur</button>
-                <button onclick="mostrarTiendasPorZona('Eje Cafetero')">Eje Cafetero</button>
-                <button onclick="mostrarTiendasPorZona('Zona Occidente')">Zona Occidente</button>
-                <button onclick="mostrarTiendasPorZona('Tienda Online')">Tienda Online</button>
-            </div>
+
+        // 1. CREAMOS LA TARJETA DE PRODUCTO
+        const card = document.createElement('div');
+        card.className = 'msg received';
+        // Ajustamos el nombre de la imagen (ej: jeans.webp)
+        const fotoNombre = prenda.toLowerCase().replace(" ", "") + ".webp"; 
+        
+        card.innerHTML = `
+            <img src="${fotoNombre}" style="width:100%; border-radius:10px; margin-bottom:8px; display:block;">
+            <p>¡Nuestros <strong>${prenda}</strong> tienen un calce perfecto! ✨ Te van a encantar.</p>
         `;
-        messages.appendChild(divZonas);
+        messages.appendChild(card);
         messages.scrollTop = messages.scrollHeight;
-        const sonido = new Audio('notificacion.mp3');
-        sonido.play().catch(e => console.log("Error de audio:", e));
+
+        // Reproducir sonido para la foto
+        new Audio('notificacion.mp3').play().catch(e => {});
+
+        // 2. SEGUNDO PASO: Esperamos 1.5 segundos más para mostrar las zonas
+        setTimeout(() => {
+            mostrarEscribiendo();
+            
+            setTimeout(() => {
+                quitarEscribiendo();
+                const divZonas = document.createElement('div');
+                divZonas.classList.add('msg', 'received');
+                divZonas.innerHTML = `
+                    <p>¡Perfecto! Selecciona tu zona para encontrar tu tienda <strong>Kancan</strong> más cercana: 📍</p>
+                    <div class="botones-grid">
+                        <button onclick="mostrarTiendasPorZona('Cali Norte')">Cali Norte</button>
+                        <button onclick="mostrarTiendasPorZona('Cali Sur')">Cali Sur</button>
+                        <button onclick="mostrarTiendasPorZona('Eje Cafetero')">Eje Cafetero</button>
+                        <button onclick="mostrarTiendasPorZona('Zona Occidente')">Zona Occidente</button>
+                        <button onclick="mostrarTiendasPorZona('Tienda Online')">Tienda Online</button>
+                    </div>
+                `;
+                messages.appendChild(divZonas);
+                messages.scrollTop = messages.scrollHeight;
+                
+                // Sonido para las zonas
+                new Audio('notificacion.mp3').play().catch(e => {});
+            }, 1200);
+        }, 1500);
+
     }, 1500);
-    document.getElementById('progress-bar').style.width = '60%';
 }
 
 function irAWhatsapp(ciudad) {
@@ -316,14 +345,27 @@ function confirmarTienda(zona, index) {
         quitarEscribiendo();
 
         const mensajeFinal = `¡Hola! Soy ${nombreClienta} (CC: ${cedulaClienta}). Vengo del chat de KanCan. Me interesa ver ${prendaElegida} en la tienda ${tienda.nombre}. ¿Qué referencia y talla manejas? ✨`;
-        const linkFinal = `${tienda.link}&text=${encodeURIComponent(mensajeFinal)}`;
+        
+        // LIMPIEZA PARA MÓVILES: Quitamos espacios en blanco del link original para que no se rompa al unirlo
+        const linkBaseLimpio = tienda.link.trim();
+        
+        // UNIÓN SEGURA: Unimos tu link con el mensaje usando el formato que te funciona
+        const linkFinal = `${linkBaseLimpio}&text=${encodeURIComponent(mensajeFinal)}`;
 
         enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
         <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
         
+        // Añadimos el sonido para que también suene en el móvil
+        new Audio('notificacion.mp3').play().catch(e => {});
+        
     }, 1600); 
-    document.getElementById('progress-bar').style.width = '100%';
+    
+    if(document.getElementById('progress-bar')) {
+        document.getElementById('progress-bar').style.width = '100%';
+    }
 }
+
+
 
 const notification = document.getElementById('chat-notification');
 
