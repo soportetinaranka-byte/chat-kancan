@@ -90,6 +90,7 @@ form.addEventListener('submit', (e) => {
     else if (pasoActual === "preguntandoCedula") {
         cedulaClienta = texto;
         pasoActual = ""; // Cerramos el cuestionario
+        ocultarEscritura();
         setTimeout(() => {
             enviarMensajeBot("¡Gracias por la información! Ahora sí...");
             mostrarMenuPrendas(); // Ahora sí sale el menú de Jeans, Blusas, etc.
@@ -492,4 +493,16 @@ function checkModoNocturno() {
     }
 }
 checkModoNocturno();
+function ocultarEscritura() {
+    const formulario = document.getElementById('chat-form');
+    if (formulario) {
+        // En lugar de borrarlo, lo ocultamos para que no deje un hueco
+        formulario.style.display = 'none';
+        
+        // Ajustamos el área de mensajes para que use ese espacio extra
+        const mensajesArea = document.getElementById('messages');
+        mensajesArea.style.height = '100%';
+        mensajesArea.style.marginBottom = '0';
+    }
+}
 
