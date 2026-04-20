@@ -352,9 +352,11 @@ function confirmarTienda(zona, index) {
         
         // UNIÓN SEGURA: Unimos tu link con el mensaje usando el formato que te funciona
         const linkFinal = `${linkBaseLimpio}&text=${encodeURIComponent(mensajeFinal)}`;
+        onclick="lanzarCelebracionKancan(); return true;";    
+        // Dentro de tu enviarMensajeBot de confirmarTienda, asegúrate que el link sea así:
+      enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
+      <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
 
-        enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
-        <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
         
         // Añadimos el sonido para que también suene en el móvil
         new Audio('notificacion.mp3').play().catch(e => {});
@@ -496,13 +498,43 @@ checkModoNocturno();
 function ocultarEscritura() {
     const formulario = document.getElementById('chat-form');
     if (formulario) {
-        // En lugar de borrarlo, lo ocultamos para que no deje un hueco
+        // En lugar de borrarlo, lo oculta para que no deje un hueco
         formulario.style.display = 'none';
         
-        // Ajustamos el área de mensajes para que use ese espacio extra
+        // Ajusta el área de mensajes para que use ese espacio extra
         const mensajesArea = document.getElementById('messages');
         mensajesArea.style.height = '100%';
         mensajesArea.style.marginBottom = '0';
     }
+}
+
+function lanzarCelebracionKancan() {
+    console.log("¡Lanzando confeti KanCan! 💞"); 
+    
+    // Explosión central masiva
+    confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#4639f7', '#3d77f3', '#ffffff'] 
+    });
+
+    // Pequeñas explosiones laterales
+    setTimeout(() => {
+        confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#3d77f3', '#ffffff']
+        });
+        confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#4639f7', '#ffffff']
+        });
+    }, 200);
 }
 
