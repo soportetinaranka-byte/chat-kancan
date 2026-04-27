@@ -410,17 +410,24 @@ imagenesKancan.forEach((url) => {
 
 function rotarCarrusel() {
     if (carrusel) {
+        const nombreImagen = encodeURI(imagenesKancan[indiceActual]);
+        const imgTemp = new Image(); // Creamos una imagen invisible en memoria
         
-        carrusel.style.opacity = "0.19"; 
-        
-        setTimeout(() => {
-            const nombreImagen = encodeURI(imagenesKancan[indiceActual]);
-            carrusel.style.backgroundImage = `url('${nombreImagen}')`;
-            carrusel.style.opacity = "1"; // Volvemos a opacidad total
-            indiceActual = (indiceActual + 1) % imagenesKancan.length;
-        }, 500); 
+        imgTemp.src = nombreImagen;
+
+        // ESTO ES LO CLAVE: Solo cambiamos el fondo cuando la imagen cargó 100%
+        imgTemp.onload = () => {
+            carrusel.style.opacity = "0.19"; // Bajamos opacidad para el efecto de transición
+            
+            setTimeout(() => {
+                carrusel.style.backgroundImage = `url('${nombreImagen}')`;
+                carrusel.style.opacity = "1"; // Volvemos a mostrarla
+                indiceActual = (indiceActual + 1) % imagenesKancan.length;
+            }, 500); 
+        };
     }
 }
+
 
 
 setTimeout(() => {
