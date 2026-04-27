@@ -9,22 +9,6 @@ body {
     height: 100vh;
 }
 
-#carrusel-vertical {
-    position: fixed;
-    top: 50%;
-    left: 10%; 
-    transform: translateY(-50%);
-    width: 300px; 
-    height: 500px; 
-    background-size: contain; 
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: opacity 1s ease-in-out, background-image 1s ease-in-out;
-    opacity: 0; 
-    z-index: 10;
-}
 
 
 #chat-container {
