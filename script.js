@@ -410,7 +410,7 @@ imagenesKancan.forEach((url) => {
 function rotarCarrusel() {
     if (carrusel) {
         
-        carrusel.style.opacity = "0.9"; 
+        carrusel.style.opacity = "0.19"; 
         
         setTimeout(() => {
             const nombreImagen = encodeURI(imagenesKancan[indiceActual]);
