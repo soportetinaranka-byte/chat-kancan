@@ -89,7 +89,7 @@ form.addEventListener('submit', (e) => {
     } 
     else if (pasoActual === "preguntandoCedula") {
         cedulaClienta = texto;
-        pasoActual = ""; // Cerramos el cuestionario
+        pasoActual = ""; // Cierra el cuestionario
         ocultarEscritura();
         setTimeout(() => {
             enviarMensajeBot("¡Gracias por la información! Ahora sí...");
@@ -98,7 +98,7 @@ form.addEventListener('submit', (e) => {
         document.getElementById('progress-bar').style.width = '30%';
     } 
     else {
-        // Si no estamos preguntando datos, enviamos al socket normalmente
+        // Si no estamos preguntando datos, envia al socket normalmente
         socket.emit('mensaje-chat', texto);
     }
 });
@@ -136,7 +136,7 @@ function aceptarPoliticas(acepta) {
         enviarMensajeUsuario("Sí, acepto");
         setTimeout(() => {
             enviarMensajeBot("¡Gracias, hermosa! ✨ Para brindarte una mejor asesoría, ¿nos regalas tu Nombre Completo?");
-            pasoActual = "preguntandoNombre"; // Activamos la escucha del nombre
+            pasoActual = "preguntandoNombre"; // Activa la escucha del nombre
         }, 800);
     } else {
         enviarMensajeBot("Entendido. ¡Lindo día! ✨");
@@ -347,18 +347,17 @@ function confirmarTienda(zona, index) {
 
         const mensajeFinal = `¡Hola! Soy ${nombreClienta} (CC: ${cedulaClienta}). Vengo del chat de KanCan. Me interesa ver ${prendaElegida} en la tienda ${tienda.nombre}. ¿Qué referencia y talla manejas? ✨`;
         
-        // LIMPIEZA PARA MÓVILES: Quitamos espacios en blanco del link original para que no se rompa al unirlo
+        // LIMPIEZA PARA MÓVILES: Se quita espacios en blanco del link original para que no se rompa al unirlo
         const linkBaseLimpio = tienda.link.trim();
         
-        // UNIÓN SEGURA: Unimos tu link con el mensaje usando el formato que te funciona
+        // UNIÓN SEGURA: Uní el link con el mensaje usando el formato que funciona
         const linkFinal = `${linkBaseLimpio}&text=${encodeURIComponent(mensajeFinal)}`;
         onclick="lanzarCelebracionKancan(); return true;";    
-        // Dentro de tu enviarMensajeBot de confirmarTienda, asegúrate que el link sea así:
-      enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
-      <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
+        enviarMensajeBot(`¡Excelente elección! Haz clic abajo para hablar con la asesora de <strong>${tienda.nombre}</strong>: <br> 
+     <a href="${linkFinal}" target="_blank" class="btn-wa">Ir a WhatsApp de la tienda ✅</a>`);
 
         
-        // Añadimos el sonido para que también suene en el móvil
+        // Se añadió el sonido para que también suene en el móvil
         new Audio('notificacion.mp3').play().catch(e => {});
         
     }, 1600); 
@@ -395,7 +394,8 @@ setTimeout(cicloNotificacion, 2000);
 const imagenesKancan = [
     'New1.webp', 'New2.webp', 'New 3.webp', 'New 4.webp', 'New 5.webp',
     'New 6.webp', 'New 7.webp', 'New 8.webp', 'New 9.webp', 'New 10.webp', 'New 11.webp', 'New 12.webp', 
-    'New 13.webp', 'New 14.webp','New 16.webp','New 17.webp','New 18.webp','New 19.webp'
+    'New 13.webp', 'New 14.webp','New 16.webp','New 17.webp','New 18.webp','New 19.webp', 'New 20.webp', 
+    'New 21.webp', 'New 22.webp', 'New 23.webp', 'New 24. webp', 'New 25.webp', 'New 26.webp', 'New 26.webp'  
 ];
 
 let indiceActual = 0;
@@ -415,7 +415,7 @@ function rotarCarrusel() {
         
         imgTemp.src = nombreImagen;
 
-        // ESTO ES LO CLAVE: Solo cambiamos el fondo cuando la imagen cargó 100%
+        // CLAVE: Solo se cambia el fondo cuando la imagen cargó 100%
         imgTemp.onload = () => {
             carrusel.style.opacity = "0.19"; // Bajamos opacidad para el efecto de transición
             
@@ -427,7 +427,6 @@ function rotarCarrusel() {
         };
     }
 }
-
 
 
 setTimeout(() => {
@@ -545,4 +544,3 @@ function lanzarCelebracionKancan() {
         });
     }, 200);
 }
-
