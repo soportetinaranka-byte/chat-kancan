@@ -392,7 +392,7 @@ setInterval(cicloNotificacion, 10000);
 setTimeout(cicloNotificacion, 2000);
 
 const imagenesKancan = [
-    'New1.webp', 'New2.webp', 'New 3.webp', 'New 4.webp', 'New 5.webp',
+    'New 26.webp', 'New 27.webp', 'New1.webp', 'New2.webp', 'New 3.webp', 'New 4.webp', 'New 5.webp',
     'New 6.webp', 'New 7.webp', 'New 8.webp', 'New 9.webp', 'New 10.webp', 'New 11.webp', 'New 12.webp', 
     'New 13.webp', 'New 14.webp','New 16.webp','New 17.webp','New 18.webp','New 19.webp', 'New 20.webp', 
     'New 21.webp', 'New 22.webp', 'New 23.webp', 'New 24. webp', 'New 25.webp', 'New 26.webp', 'New 26.webp'  
